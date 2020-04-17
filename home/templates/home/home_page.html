@@ -1,0 +1,339 @@
+{% load static wagtailuserbar %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load homeapp_tags %}
+
+<body>
+
+    <!--================Header Menu Area =================-->
+    {% show_navbar %}
+    <!--================Header Menu Area =================-->
+
+    <!--================Home Banner Area =================-->
+    <section class="home_banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            {% if page.intro_video_id %}
+    <div class="videoWrapper">
+    
+      {% if videoFormatIsVimeo %}
+       <iframe class="trailer" style="opacity: {{page.video_background_brightness}};" src="//player.vimeo.com/video/{{page.intro_video_id}}?api=1&background=1&title=0&amp;portrait=0&amp;byline=0&amp;autoplay=1&amp;loop=1"  frameborder="0" allowfullscreen=""></iframe>
+      {% else %}
+        <iframe class="trailer" style="opacity: {{page.video_background_brightness}};" src="https://www.youtube.com/embed/{{page.intro_video_id}}?rel=0&amp;controls=0&amp;showinfo=0&amp;mute=1&amp;autoplay=1&amp;loop=1&amp;playlist={{page.intro_video_id}}" allowfullscreen="" width="560" height="349" frameborder="0"></iframe>
+      {% endif %}
+      </div>    
+    {% endif %}
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-6 col-xl-5 offset-xl-7">
+                        <div class="banner_content">
+                            <h3>{{page.intro_header}}</h3>
+                            <p>{{page.intro_text|richtext}}</p>
+                             {% if page.intro_continue_button_text %}
+                                <a class="banner_btn" href="#service-area">{{page.intro_continue_button_text}}<i class="ti-arrow-right"></i></a>
+                             {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+    <!--================Service  Area =================-->
+     {% if self.iconListOrderable.all  %}
+    <section id="service-area" class="service-area area-padding">
+        <div class="container">
+            <div class="row">
+                {% for i in self.iconListOrderable.all %}                
+                <div class="col-md-6 col-lg-4">
+                    <div class="single-service">
+                        <div class="service-icon">
+                            <i class="{{i.iconItem.icon}}"></i>
+                        </div>
+                        <div class="service-content">
+                            <h5>{{i.iconItem.title}}</h5>
+                            {{i.iconItem.text|richtext}}
+                            <a href="{{i.iconItem.link}}">{{i.iconItem.linkText}}</a>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </section>
+      {% endif %}
+    <!--================Service Area end =================-->
+
+
+    <!--================About  Area =================-->
+    {% if page.show_blurb %}
+    <section class="about-area area-padding-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6">
+                    <div class="area-heading">
+                        <h4>{{page.blurb_header}}</h4>
+                        <h6>{{page.blurb_subheader}}</h6>
+                        {{page.blurb_text|richtext}}  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!--================About Area End =================-->
+
+    <!--================Feature  Area =================-->
+    {% if page.show_second_blurb %}
+ 
+    <section class="feature-area area-padding bg_one">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="offset-lg-6 col-lg-6">
+                    <div class="area-heading light">
+                        <h4>{{page.second_blurb_header}}</h4>
+                        <p>{{page.second_blurb_subheader}}</p>
+                    </div>
+                    <div style="color:white">               
+                        {{page.second_blurb_text|richtext}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!--================Feature Area End =================-->
+
+
+    <!--================About  Area =================-->
+        {% if page.show_second_blurb %}
+    <section class="statics-area area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="image-box">
+                         {% image page.third_blurb_image original class="img-fluid" %}                      
+                    </div>
+                </div>
+
+                <div class="offset-lg-1 col-lg-6" >
+                    <div class="area-heading">
+                        <h4>{{page.third_blurb_header}}</h4>
+                        <h6>{{third_blurb_subheader}}</h6>
+
+                        {{page.third_blurb_text|richtext}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     {% endif %}
+    <!--================About Area End =================-->
+
+
+
+
+
+    <!--================ Start Portfolio Area =================-->
+    {% if self.enumeratedListOrderable.all  %}
+    <section class="pricing_area area-padding-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="area-heading">
+                        <h4>{{page.enumerated_list_header}}</h4>
+                        {{page.enumerated_list_text}}
+                    </div>
+                </div>
+                {% for e in self.enumeratedListOrderable.all %}
+                <div class="col-sm-6 col-lg-3">
+                    <div class="single-pricing">
+                        <div class="pricing-icon">
+                            <i class="{{e.enumeratedList.icon}}"></i>
+                        </div>
+                        <div class="single-pricing-content">
+                            <h5>{{e.enumeratedList.title}}</h5>
+                            <h3>{{e.enumeratedList.subtitle}}</h3>
+                                {{e.enumeratedList.text|richtext}}
+                            <a href="{{e.enumeratedList.linkUrl}}">{{e.enumeratedList.linkText}}</a>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!--================ End Pricing Area =================-->
+
+
+
+    <!--================ Start Blog Area =================-->
+     {% if blogpages or medium_blogs %}
+    <section class="latest-blog-area area-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="area-heading">
+                        <h4>{{ page.blog_title }} </h4>
+                       {{ page.blog_text|richtext}}
+                    </div>           
+                </div>
+            </div>
+            <div class="row">
+                {% for med_post in medium_blogs %}  
+
+            {% comment %} This is needed to pass the medium blog data to the javascript - dont render {% endcomment %}
+            <div style="display:none" class="medium-blog-summary" id="medium-blog-summary-{{forloop.counter}}">
+                 {{med_post.summary|richtext}}
+            </div>
+               
+                {% if forloop.counter0|divisibleby:3 %}
+
+                 <div class="col-lg-8 col-md-6 ">
+                    <div class="single-blog full_image">
+                        <div class="thumb">
+                            <img id="medium_img_medium-blog-summary-{{ forloop.counter }}"  src="{% static 'img/blog/1.png'%}" alt="">                            
+                        </div>
+                        <div class="single-blog-content">
+                            <p class="tag">{{med_post.author}}</p>
+                            <p class="date">{{med_post.published}}</p>                                                             
+                                <div>
+                                    <a href="{{ med_post.links.0.href }}">{{med_post.title}}</a>       
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-lg-4 col-md-6 ">
+                    <div class="single-blog">
+                        <div class="thumb">
+                            <img id="medium_img_medium-blog-summary-{{ forloop.counter }}"  src="{% static 'img/blog/2.png'%}" alt="">
+                        </div>
+                        <div class="single-blog-content">
+
+                            <h4>
+                                <a href="{{ med_post.links.0.href }}">{{med_post.title}}</a>  
+                            </h4>
+                            <div class="meta-bottom d-flex">
+                                                            <p class="tag">{{med_post.author}}</p>
+                            <p class="date">{{med_post.published}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!--================ End Blog Area =================-->
+
+
+    <!--================ Start Brands Area =================-->
+{% comment %}    
+    <section class="brands-area area-padding-bottom">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="owl-carousel brand-carousel">
+                        <!-- single-brand -->
+                        <div class="single-brand-item d-table">
+                            <div class="d-table-cell">
+                                <img src="{% static 'img/logo/1.png'%}" alt="">
+                            </div>
+                        </div>
+                        <!-- single-brand -->
+                        <div class="single-brand-item d-table">
+                            <div class="d-table-cell">
+                                <img src="{% static 'img/logo/2.png'%}" alt="">
+                            </div>
+                        </div>
+                        <!-- single-brand -->
+                        <div class="single-brand-item d-table">
+                            <div class="d-table-cell">
+                                <img src="{% static 'img/logo/3.png'%}" alt="">
+                            </div>
+                        </div>
+                        <!-- single-brand -->
+                        <div class="single-brand-item d-table">
+                            <div class="d-table-cell">
+                                <img src="{% static 'img/logo/4.png'%}" alt="">
+                            </div>
+                        </div>
+                        <!-- single-brand -->
+                        <div class="single-brand-item d-table">
+                            <div class="d-table-cell">
+                                <img src="{% static 'img/logo/5.png'%}" alt="">
+                            </div>
+                        </div>
+                        <!-- single-brand -->
+                        <div class="single-brand-item d-table">
+                            <div class="d-table-cell">
+                                <img src="{% static 'img/logo/3.png'%}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>  {% endcomment %}
+  
+    <!--================ End Brands Area =================-->
+
+
+
+    <!-- ================ start footer Area ================= -->
+
+<!-- ================ End footer Area ================= -->
+
+{% show_footer %}
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'js/jquery-2.2.4.min.js'%}"></script>
+<script src="{% static 'js/popper.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+<script src="{% static 'js/jquery.ajaxchimp.min.js'%}"></script>
+<script src="{% static 'js/waypoints.min.js'%}"></script>
+<script src="{% static 'js/mail-script.js'%}"></script>
+<script src="{% static 'js/contact.js'%}"></script>
+<script src="{% static 'js/jquery.form.js'%}"></script>
+<script src="{% static 'js/jquery.validate.min.js'%}"></script>
+<script src="{% static 'js/mail-script.js'%}"></script>
+<script src="{% static 'js/theme.js'%}"></script>
+
+
+<script>
+$(document).ready(function(){
+  {% autoescape off %}
+  {{page.custom_javacript}}
+{% endautoescape %}
+  
+  $(".medium-blog-summary").each(function() {  
+       var targetId = $(this).attr("id");
+       $("#" + targetId + " img").each(function() {
+         var source = this.src;
+         try{
+         if(source.includes("cdn-images")){
+          $("#medium_img_"+targetId).attr("src",source);
+        }
+      }catch{
+        console.warn("could not update " + targetId + " image with image from medium site")
+      }
+    });   
+  });    
+});
+
+</script>
+</body>
+</html>

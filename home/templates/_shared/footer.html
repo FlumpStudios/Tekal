@@ -1,0 +1,112 @@
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+   <footer class="footer-area">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+                    <h4>{{home.footer_info_title}}</h4>
+                    {{home.footer_info|richtext}}
+                    <div class="footer-logo">
+                         {% if home.logo %}            
+                        <a href="#">{% image home.logo original class="main_logo" %}<span class="text-primary"></span></a>
+                        {% else %}
+                       <h3><a class="main-logo-text" href="#">{{home.client_organisationName}}<span class="text-primary"></span></a></h3>
+                    {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+                    <h4>Contact Info</h4>
+                    <div class="footer-address">
+                        
+             {% if has_address %}
+              <p class="mb-0 font-weight-bold">Address</p>
+              <p class="mb-4">
+              {{home.client_organisationName}}
+              {% if home.client_organisationName %}
+              ,
+              {% endif %}
+              {{home.client_addressLine1}}
+              {% if home.client_addressLine1  %}
+              ,
+              {% endif %}
+              
+              {{home.client_addressLine2}}
+              {% if home.client_addressLine2  %}
+              ,
+              {% endif %}
+
+              {{home.client_town}}
+              {% if home.client_town  %}
+              ,
+              {% endif %}
+
+              {{home.client_county}}
+              {% if home.client_county  %}
+              ,
+              {% endif %}
+
+              {{home.client_country}}
+              {% if home.client_country  %}
+              ,
+              {% endif %}
+
+              {{home.client_postcode}}              
+              </p>
+              {% endif %}
+
+              {% if home.client_phone  %}
+              <p class="mb-0 font-weight-bold">Phone</p>
+              <p class="mb-4"><a href="#">{{home.client_phone}}</a></p>
+              {% endif %}
+
+              {% if home.client_moblie  %}
+              <p class="mb-0 font-weight-bold">Mobile</p>
+              <p class="mb-4"><a href="#">{{home.client_moblie}}</a></p>
+              {% endif %}
+
+              {% if home.client_email  %}
+              <p class="mb-0 font-weight-bold">Email Address</p>
+              <p class="mb-0"><a href="#">{{home.client_email}}</a></p>
+              {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom row align-items-center text-center text-lg-left no-gutters">
+            <p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            <div class="col-lg-4 col-md-12 text-center text-lg-right footer-social">
+                {% for e in home.socialMediaOrderable.all %}   
+                <a href="{{e.socialMediaItem.link}}"><i class="{{e.socialMediaItem.icon}}"></i></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'js/jquery-2.2.4.min.js'%}"></script>
+<script src="{% static 'js/popper.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+<script src="{% static 'js/jquery.ajaxchimp.min.js'%}"></script>
+<script src="{% static 'js/waypoints.min.js'%}"></script>
+<script src="{% static 'js/mail-script.js'%}"></script>
+<script src="{% static 'js/contact.js'%}"></script>
+<script src="{% static 'js/jquery.form.js'%}"></script>
+<script src="{% static 'js/jquery.validate.min.js'%}"></script>
+<script src="{% static 'js/mail-script.js'%}"></script>
+<script src="{% static 'js/theme.js'%}"></script>
+
+{% comment %} Inject custom JS {% endcomment %}
+
+<script>
+$(document).ready(function(){
+  {% autoescape off %}
+  {{home.custom_javacript}}
+{% endautoescape %}
+});
+</script>

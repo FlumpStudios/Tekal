@@ -1,0 +1,32 @@
+{% load static wagtailuserbar %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load homeapp_tags %}
+
+{% show_navbar %}    
+    <section class="hero-banner d-flex align-items-center">
+        <div class="container text-center">
+            <h2>{{page.title}}</h2>
+            <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{page.title}}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+     <br/>
+        <br/>
+        <br/>
+    <div class="container">
+        <div class="row">
+            <div class="center">
+            {{page.thank_you_text|richtext}}
+            </div>        
+        </div>
+    </div>    
+    <br/>
+        <br/>
+        <br/>
+{% show_footer %}

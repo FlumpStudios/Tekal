@@ -1,0 +1,139 @@
+
+{% load static %}
+{% load wagtailimages_tags %}
+{% image home.intro_background original as img %}
+{% image home.blurb_background original as blurb_img %}
+{% image home.second_blurb_background original as blurb2_img %}
+{% image home.third_blurb_background original as blurb3_img %}
+{% image home.favicon original as favicon %}
+
+<style>
+
+.banner_btn { 
+        background:  {{home.primary_colour}}; 
+        border: 1px solid  {{home.primary_colour}};
+  }
+  .banner_btn:hover{
+      transform: scale(1.05);
+  }
+
+.statics-area {
+  background-image: url({{blurb3_img.url}});
+  background-position: top left;
+  background-repeat: no-repeat; }
+  .statics-area .area-heading {
+    margin-bottom: 40px; }
+
+.bg_one{
+  background: {{home.primary_colour}};
+}
+  .feature-area:after {
+    background-image: url({{blurb2_img.url}});
+    }
+
+.about-area:after {
+    background-image: url({{blurb_img.url}});
+}
+   
+    .videoWrapper {
+    position: absolute;
+    top:0px;    
+    height: 100vh;
+    width: 100%;
+    background: black;
+    }
+
+    .videoWrapper iframe{
+        width:100%;
+        height: 100vh;
+    }
+     @media (max-width: 768px){
+        .videoWrapper{
+            display:none;
+        }
+        
+        .home_banner_area .banner_inner .overlay {
+            background: url({{img.url}}) no-repeat scroll center center;
+        }
+
+     }
+ .main_logo{
+     max-width:150px;
+     height: auto;
+ }
+ .main-logo-text{
+     color: white;
+ }
+    .home_banner_area .banner_inner .overlay {
+      {% if not home.intro_video_id %}
+       background: url({{img.url}}) no-repeat scroll center center;
+     {% endif %}
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 100%;
+      bottom: 0;
+      z-index: -1; }
+
+
+{% autoescape off %}
+  {{home.custom_css}}
+{% endautoescape %}
+
+</style>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{% static '{{favicon.url}}'%}" type="image/png">
+    <title>{{home.title}}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css'%}">    
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css'%}">
+</head>
+
+    
+    <header class="header_area">	
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                      {% if home.logo %}            
+                        <a href="/">{% image home.logo original class="main_logo" %}<span class="text-primary"></span></a>
+                        {% else %}
+                       <h3><a class="main-logo-text" href="/">{{home.client_organisationName}}<span class="text-primary"></span></a></h3>
+                    {% endif %}
+                 
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            {% for menu in menuitems %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{menu.url}}">{{menu.title}}</a>
+                                </li>
+                            {% endfor %}                                          
+                        </ul>
+                    </div>                     
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    {% autoescape off %}
+     {{home.custom_html}}
+    {% endautoescape %}

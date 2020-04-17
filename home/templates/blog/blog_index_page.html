@@ -1,0 +1,127 @@
+{% load static wagtailuserbar %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load homeapp_tags %}
+
+<!doctype html>
+<html lang="en">
+
+<body>    
+    <!--================Header Menu Area =================-->
+{% show_navbar %}
+    <!--================Header Menu Area =================-->
+  
+
+    <!--================Hero Banner Area Start =================-->
+    <section class="hero-banner d-flex align-items-center">
+        <div class="container text-center">
+            <h2>Blog</h2>
+            <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <!--================Hero Banner Area End =================-->
+
+
+  <!--================Blog Area =================-->
+  <section class="blog_area area-padding">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-8 mb-5 mb-lg-0">
+                  <div class="blog_left_sidebar">
+                      
+                       {% for med_post in medium_blogs %}  
+                              {% comment %} This is needed to pass the medium blog data to the javascript - dont render {% endcomment %}
+
+                      <article class="blog_item">
+                        <div class="blog_details">
+                        <h2> {{med_post.title}}</h2>
+                            
+                        <div class="medium-blog-summary" id="medium-blog-summary-{{forloop.counter}}">
+                            {{med_post.summary|richtext}}
+                        </div>
+
+                            <ul class="blog-info-link">
+                              <li> {{med_post.author}}</a></li>
+                              <li> {{med_post.published}}</a></li>
+                            </ul>
+                        </div>
+                      </article>
+
+                       {% endfor %}
+
+                      {% comment %} <nav class="blog-pagination justify-content-center d-flex">
+                          <ul class="pagination">
+                              <li class="page-item">
+                                  <a href="#" class="page-link" aria-label="Previous">
+                                      <i class="ti-angle-left"></i>
+                                  </a>
+                              </li>
+                              <li class="page-item">
+                                  <a href="#" class="page-link">1</a>
+                              </li>
+                              <li class="page-item active">
+                                  <a href="#" class="page-link">2</a>
+                              </li>
+                              <li class="page-item">
+                                  <a href="#" class="page-link" aria-label="Next">
+                                      <i class="ti-angle-right"></i>
+                                  </a>
+                              </li>
+                          </ul>
+                      </nav> {% endcomment %}
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="blog_right_sidebar">     
+                      <aside class="single_sidebar_widget popular_post_widget">
+                          <h3 class="widget_title">Recent Post</h3>
+                        {% for recent_med_post in recent_medium_blogs %} 
+                          <div class="media post_item">
+                              <img style="max-width:100px" id="medium_img_medium-blog-summary-{{ forloop.counter }}" src="{% static 'img/blog/popular-post/post1.jpg'%}" alt="post">
+                              <div class="media-body">
+                                  <a href="single-blog.html">
+                                      <h3>{{recent_med_post.title|truncatechars:18}}</h3>
+                                  </a>
+                                  <p>{{recent_med_post.published|slice:16}}</p>
+                              </div>
+                          </div>
+                          {% endfor %}
+                      </aside>
+                  </div>
+              </div>
+          </div>
+                  <br/>
+  <h4><a href="https://medium.com/{{home.medium_username}}">Head over to Medium to read more blogs...</a></h4>
+      </div>
+
+  </section>
+
+  <!--================Blog Area =================-->
+
+ <!-- ================ start footer Area ================= -->
+{% show_footer %}
+<!-- ================ End footer Area ================= -->
+</body>
+</html>
+
+<script>  
+  $(".medium-blog-summary").each(function() {  
+       var targetId = $(this).attr("id");
+       $("#" + targetId + " img").each(function() {
+         var source = this.src;
+         try{
+         if(source.includes("cdn-images")){
+          $("#medium_img_"+targetId).attr("src",source);
+        }
+      }catch{
+        console.warn("could not update " + targetId + " image with image from medium site")
+      }
+    });   
+  });    
+</script>

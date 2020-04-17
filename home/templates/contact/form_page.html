@@ -1,0 +1,129 @@
+{% load static wagtailuserbar %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load homeapp_tags %}
+
+<body>
+
+    <!--================Header Menu Area =================-->
+    {% show_navbar %}    
+    <!--================Header Menu Area =================-->
+
+    <!--================Hero Banner Area Start =================-->
+    <section class="hero-banner d-flex align-items-center">
+        <div class="container text-center">
+            <h2>Contact</h2>
+            <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{page.title}}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <!--================Hero Banner Area End =================-->
+
+
+  <!-- ================ contact section start ================= -->
+  <section class="contact-section area-padding">
+    <div class="container">
+      <div class="d-none d-sm-block mb-5 pb-4">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="contact-title">Get in Touch</h2>
+        </div>
+        <div class="form-container col-lg-8">
+        <form action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Send Message" class="btn btn-secondary btn-md text-white">
+        </form>
+
+
+        </div>
+
+        <div class="col-lg-4">
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-home"></i></span>
+            <div class="media-body">
+              <h3>{{home.client_town}}{% if home.client_town and home.client_county %}, {%endif%} {{home.client_county}}</h3>
+              <p> {{home.client_addressLine1}}{% if home.client_addressLine1 and home.client_postcode %}, {%endif%} {{home.client_postcode}}</p>
+            </div>
+          </div>
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+            <div class="media-body">
+              <h3><a href="tel:{{home.client_phone}}">{{home.client_phone}}</a></h3>
+              <p>{{home.client_phone_availability}}</p>
+            </div>
+          </div>
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-email"></i></span>
+            <div class="media-body">
+              <h3><a href="mailto:{{home.client_email}}">{{home.client_email}}</a></h3>
+              <p>Send us your query anytime!</p>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================ contact section end ================= -->
+
+ <!-- ================ start footer Area ================= -->
+{% show_footer %}
+<!-- ================ End footer Area ================= -->
+
+
+<!--================Contact Success and Error message Area =================-->
+    <div id="success" class="modal modal-message fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h2>Thank you</h2>
+                    <p>Your message is successfully sent...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals error -->
+
+    <div id="error" class="modal modal-message fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h2>Sorry !</h2>
+                    <p> Something went wrong </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--================End Contact Success and Error message Area =================-->
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'js/jquery-2.2.4.min.js'%}"></script>
+<script src="{% static 'js/popper.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+<script src="{% static 'js/jquery.ajaxchimp.min.js'%}"></script>
+<script src="{% static 'js/waypoints.min.js'%}"></script>
+<script src="{% static 'js/mail-script.js'%}"></script>
+<script src="{% static 'js/contact.js'%}"></script>
+<script src="{% static 'js/jquery.form.js'%}"></script>
+<script src="{% static 'js/jquery.validate.min.js'%}"></script>
+<script src="{% static 'js/mail-script.js'%}"></script>
+<script src="{% static 'js/theme.js'%}"></script>
+</body>
+</html>

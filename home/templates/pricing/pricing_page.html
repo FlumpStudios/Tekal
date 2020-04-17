@@ -1,0 +1,169 @@
+{% load static wagtailuserbar %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load homeapp_tags %}
+
+{% image page.hero_image original as hero_img  %}
+    
+<style>
+
+.hero-banner{
+    background: url({{hero_img.url}}) no-repeat scroll center center;
+}
+
+</style>
+<body>
+
+    <!--================Header Menu Area =================-->
+    {% show_navbar %}
+    
+    <!--================Header Menu Area =================-->
+
+
+    <!--================Hero Banner Area Start =================-->
+    <section class="hero-banner d-flex align-items-center">
+        <div class="container text-center">
+            <h2>Price</h2>
+            <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{page.title}}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <!--================Hero Banner Area End =================-->
+
+
+    <!--================ Start Portfolio Area =================-->
+    
+    <section class="pricing_area area-padding-top">
+        <div class="container">
+            <div class="row">
+                {% if page.intro_content %}
+                <div class="col-12">
+                    <div class="area-heading">
+                        {{page.intro_content|richtext}}
+                    </div>
+                </div>
+                {% endif %}
+                {% if self.PricingEnumeratedListOrderable.all  %}
+                {% for e in self.PricingEnumeratedListOrderable.all %}
+                <div class="col-sm-6 col-lg-3">
+                    <div class="single-pricing">
+                        <div class="pricing-icon">
+                            <i class="{{e.enumeratedList.icon}}"></i>
+                        </div>
+                        <div class="single-pricing-content">
+                            <h5>{{e.enumeratedList.title}}</h5>
+                            <h3>{{e.enumeratedList.subtitle}}</h3>
+                                {{e.enumeratedList.text|richtext}}
+                            <a href="{{e.enumeratedList.linkUrl}}">{{e.enumeratedList.linkText}}</a>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            {% endif %} 
+            </div>
+        </div>
+    </section>
+    <br/>
+
+    <br/><br/>
+    <!--================ End Pricing Area =================-->
+
+
+    <!--================ Start Faq Area =================-->
+    <section class="faq_area area-padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="area-heading">
+                        {{page.question_and_answers_intro|richtext}}
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 col-lg-6">
+                    <div class="accordion" id="accordionExample">
+                
+                        {% for e in self.qAOrderable.all %}
+                        {% if forloop.counter0|divisibleby:2 %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{forloop.counter}}">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
+                                        {{e.qaList.question}}
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapse{{forloop.counter}}" class="collapse" aria-labelledby="heading{{forloop.counter}}" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    {{e.qaList.answer}}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-lg-6">
+                    <div class="accordion" id="accordionExample2">
+                
+                        {% for e in self.qAOrderable.all %}
+                        {% if forloop.counter|divisibleby:2 %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{forloop.counter}}">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
+                                        {{e.qaList.question}}
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapse{{forloop.counter}}" class="collapse" aria-labelledby="heading{{forloop.counter}}" data-parent="#accordionExample2">
+                                <div class="card-body">
+                                    {{e.qaList.answer}}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- <div class="col-sm-12 col-lg-6">
+                    <div class="accordion" id="accordionExample2">
+                        <div class="card">
+                            <div class="card-header" id="headingTen">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        How many people will be in the workshop?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordionExample2">
+                                <div class="card-body">
+                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+
+
+            </div>
+        </div>
+    </section>
+    <!--================ End Faq Area =================-->
+
+
+
+<!-- ================ start footer Area ================= -->
+{% show_footer %}
+<!-- ================ End footer Area ================= -->
+
+</body>
+</html>

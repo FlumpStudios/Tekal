@@ -1,0 +1,99 @@
+{% load static wagtailuserbar %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load homeapp_tags %}
+{% image page.hero_image original as hero_img  %}
+    
+<style>
+
+.hero-banner{
+    background: url({{hero_img.url}}) no-repeat scroll center center;
+}
+
+</style>
+<body>
+
+    <!--================Header Menu Area =================-->
+    {% show_navbar %}    
+    <!--================Header Menu Area =================-->
+
+
+    <!--================Hero Banner Area Start =================-->
+    <section class="hero-banner d-flex align-items-center">
+        <div class="container text-center">
+            <h2>Features</h2>
+            <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{page.title}}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <!--================Hero Banner Area End =================-->
+    
+    {% if page.intro_content %}
+    <section class="area-padding">
+        <div class="container">
+            <div class="row">
+                <div>
+                {{page.intro_content|richtext}}
+            </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+
+    <!--================Service  Area =================-->
+    {% if self.featuresIconListOrderable.all  %}
+    <section id="service-area" class="service-area area-padding">
+        <div class="container">
+            <div class="row">
+                {% for i in self.featuresIconListOrderable.all %}                
+                <div class="col-md-6 col-lg-4">
+                    <div class="single-service">
+                        <div class="service-icon">
+                            <i class="{{i.iconItem.icon}}"></i>
+                        </div>
+                        <div class="service-content">
+                            <h5>{{i.iconItem.title}}</h5>
+                            {{i.iconItem.text|richtext}}
+                            <a href="{{i.iconItem.link}}">{{i.iconItem.linkText}}</a>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </section>
+      {% endif %}
+    <!--================Service Area end =================-->
+
+
+    <!--================About  Area =================-->
+    {% if page.features_show_blurb %}
+    <section class="about-area area-padding-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6">
+                    <div class="area-heading">
+                        <h4>{{page.features_blurb_header}}</h4>
+                        <h6>{{page.features_blurb_subheader}}</h6>
+                        {{page.features_blurb_text|richtext}}  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!--================About Area End =================-->
+
+   <!-- ================ start footer Area ================= -->
+{% show_footer %}
+<!-- ================ End footer Area ================= -->
+
+</body>
+</html>
