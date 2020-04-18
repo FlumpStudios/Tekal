@@ -17,7 +17,8 @@
     <!--================Header Menu Area =================-->
 
     <!--================Hero Banner Area Start =================-->
-    <section class="hero-banner d-flex align-items-center">
+    {% image page.hero_image original as hero_img  %}
+    <section style="background: url({{hero_img.url}})" class="hero-banner d-flex align-items-center">
         <div class="container text-center">
             <h2>Contact</h2>
             <nav aria-label="breadcrumb" class="banner-breadcrumb">
