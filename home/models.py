@@ -806,6 +806,15 @@ class FormPage(AbstractEmailForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
     
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    
     def get_context(self, request):
         homepage = HomePage.objects.parent_of(self).live().first()
         context = super().get_context(request)
@@ -814,6 +823,7 @@ class FormPage(AbstractEmailForm):
 
 
     content_panels = AbstractEmailForm.content_panels + [
+        ImageChooserPanel('hero_image'),
         FieldPanel('intro', classname="full"),
         InlinePanel('form_fields', label="Form fields"),
         FieldPanel('thank_you_text', classname="full"),
