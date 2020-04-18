@@ -4,8 +4,9 @@
 {% load wagtailcore_tags %}
 {% load homeapp_tags %}
 
-{% show_navbar %}    
-    <section class="hero-banner d-flex align-items-center">
+{% show_navbar %} 
+{% image page.hero_image original as hero_img  %}  
+    <section style="background: url({{hero_img.url}})" class="hero-banner d-flex align-items-center">
         <div class="container text-center">
             <h2>{{page.title}}</h2>
             <nav aria-label="breadcrumb" class="banner-breadcrumb">

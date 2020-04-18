@@ -4,15 +4,8 @@
 {% load wagtailcore_tags %}
 {% load homeapp_tags %}
 
-{% image page.hero_image original as hero_img  %}
-    
-<style>
 
-.hero-banner{
-    background: url({{hero_img.url}}) no-repeat scroll center center;
-}
 
-</style>
 <body>
 
     <!--================Header Menu Area =================-->
@@ -22,7 +15,8 @@
 
 
     <!--================Hero Banner Area Start =================-->
-    <section class="hero-banner d-flex align-items-center">
+    {% image page.hero_image original as hero_img  %}
+    <section style="background: url({{hero_img.url}}) no-repeat scroll center center" class="hero-banner d-flex align-items-center">
         <div class="container text-center">
             <h2>Price</h2>
             <nav aria-label="breadcrumb" class="banner-breadcrumb">
